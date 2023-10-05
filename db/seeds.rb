@@ -7,3 +7,23 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+teams = [
+  "Real Madrid",
+  "Barcelona",
+  "Manchester United",
+  "Bayern Munich",
+  "Chelsea",
+  "Liverpool",
+  "Juventus",
+  "Paris Saint Germain",
+  "AC Milan",
+  "Borussia Dortmund",
+  "Manchester City",
+  "Arsenal",
+  "Inter Milan",
+  "Atletico Madrid",
+  "Tottenham Hotspur"
+]
+
+teams.each { Team.create!(name: _1) }
