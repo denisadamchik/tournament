@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_05_142505) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_05_150425) do
   create_table "divisions", force: :cascade do |t|
     t.integer "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "game_results", force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.integer "team_id", null: false
+    t.integer "points", default: 0, null: false
+    t.integer "goals", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_results_on_game_id"
+    t.index ["team_id"], name: "index_game_results_on_team_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -27,27 +38,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_05_142505) do
     t.index ["home_team_id"], name: "index_games_on_home_team_id"
   end
 
-  create_table "scores", force: :cascade do |t|
-    t.integer "team_id", null: false
-    t.integer "game_id", null: false
-    t.integer "level", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_scores_on_game_id"
-    t.index ["team_id"], name: "index_scores_on_team_id"
-  end
-
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "division_id"
+    t.integer "points", default: 0
+    t.boolean "active", default: true
     t.index ["division_id"], name: "index_teams_on_division_id"
   end
 
+  add_foreign_key "game_results", "games"
+  add_foreign_key "game_results", "teams"
   add_foreign_key "games", "teams", column: "away_team_id"
   add_foreign_key "games", "teams", column: "home_team_id"
-  add_foreign_key "scores", "games"
-  add_foreign_key "scores", "teams"
   add_foreign_key "teams", "divisions"
 end

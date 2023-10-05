@@ -8,8 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Team.delete_all
+GameResult.delete_all
+Game.delete_all
 Division.delete_all
+Team.delete_all
 
 teams = [
   "Real Madrid",
@@ -26,7 +28,8 @@ teams = [
   "Arsenal",
   "Inter Milan",
   "Atletico Madrid",
-  "Tottenham Hotspur"
+  "Tottenham Hotspur",
+  "FC Porto"
 ]
 
 teams.each { Team.create!(name: _1) }

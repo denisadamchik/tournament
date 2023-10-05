@@ -7,4 +7,7 @@ class Division < ApplicationRecord
   has_many :teams, dependent: :nullify
 
   validates :title, inclusion: titles.keys, uniqueness: true
+
+  def process
+  end
 end
