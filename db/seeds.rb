@@ -8,6 +8,9 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+Team.delete_all
+Division.delete_all
+
 teams = [
   "Real Madrid",
   "Barcelona",
@@ -27,3 +30,16 @@ teams = [
 ]
 
 teams.each { Team.create!(name: _1) }
+
+division_a = Division.create!(title: "A")
+division_b = Division.create!(title: "B")
+
+Team.order('RANDOM()').limit(8).each do |team|
+  division_a.teams << team
+  division_a.save!
+end
+
+Team.where.missing(:division).each do |team|
+  division_b.teams << team
+  division_b.save!
+end
