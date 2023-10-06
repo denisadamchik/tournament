@@ -1,0 +1,8 @@
+.w-full
+  = link_to "Start", tournament_index_path(stage: "regular")
+.w-full.lg:w-1/2
+  h1 Division A
+  = render "list", teams: @teams.a
+.w-full.lg:w-1/2
+  h1 Division B
+  = render "list", teams: @teams.b

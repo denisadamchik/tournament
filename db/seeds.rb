@@ -2,15 +2,7 @@
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
 
-GameResult.delete_all
-Game.delete_all
-Division.delete_all
 Team.delete_all
 
 teams = [
@@ -32,17 +24,7 @@ teams = [
   "FC Porto"
 ]
 
-teams.each { Team.create!(name: _1) }
-
-division_a = Division.create!(title: "A")
-division_b = Division.create!(title: "B")
-
-Team.order('RANDOM()').limit(8).each do |team|
-  division_a.teams << team
-  division_a.save!
-end
-
-Team.where.missing(:division).each do |team|
-  division_b.teams << team
-  division_b.save!
+teams.each_with_index do |team, index|
+  division = index.even? ? "A" : "B"
+  Team.create!(name: team, division:)
 end

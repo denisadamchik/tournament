@@ -10,8 +10,4 @@ class Game < ApplicationRecord
   belongs_to :away_team, class_name: 'Team', foreign_key: 'away_team_id'
 
   validates :level, inclusion: levels.keys, presence: true
-
-  def self.play(couple, level:)
-    Game.create!(home_team: couple.first, away_team: couple.second, level:)
-  end
 end
