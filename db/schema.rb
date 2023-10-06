@@ -10,22 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_05_142505) do
-  create_table "game_results", force: :cascade do |t|
-    t.integer "game_id", null: false
-    t.integer "team_id", null: false
-    t.integer "points", default: 0, null: false
-    t.integer "goals", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_game_results_on_game_id"
-    t.index ["team_id"], name: "index_game_results_on_team_id"
-  end
-
+ActiveRecord::Schema[7.1].define(version: 2023_10_05_135609) do
   create_table "games", force: :cascade do |t|
     t.integer "home_team_id", null: false
     t.integer "away_team_id", null: false
-    t.integer "level", null: false
+    t.integer "division"
+    t.integer "stage", null: false
+    t.string "scores", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["away_team_id"], name: "index_games_on_away_team_id"
@@ -41,8 +32,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_05_142505) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "game_results", "games"
-  add_foreign_key "game_results", "teams"
   add_foreign_key "games", "teams", column: "away_team_id"
   add_foreign_key "games", "teams", column: "home_team_id"
 end

@@ -3,7 +3,9 @@ class CreateGames < ActiveRecord::Migration[7.1]
     create_table :games do |t|
       t.references :home_team, null: false, foreign_key: { to_table: :teams }
       t.references :away_team, null: false, foreign_key: { to_table: :teams }
-      t.integer :level, null: false
+      t.integer :division
+      t.integer :stage, null: false
+      t.string :scores, null: false
 
       t.timestamps
     end

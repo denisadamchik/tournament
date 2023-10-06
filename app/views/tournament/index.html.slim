@@ -1,2 +1,13 @@
 .w-full
+  h1 = @stage.humanize
   = links(@stage)
+- if @stage == "final"
+  .w-full
+    = render "table", games: @games
+- else
+  .w-full.lg:w-1/2
+    h1 Division A
+    = render "table", games: @games.a
+  .w-full.lg:w-1/2
+    h1 Division B
+    = render "table", games: @games.b

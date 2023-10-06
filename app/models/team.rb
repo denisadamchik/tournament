@@ -1,11 +1,7 @@
 class Team < ApplicationRecord
-  enum division: {
-    "A" => 0,
-    "B" => 1
-  }
+  include Divisionable
 
   validates :name, uniqueness: true
-  validates :division, inclusion: divisions.keys
   validates :points, numericality: { greater_than_or_equal_to: 0 }
 
   scope :active, -> { where(active: true) }

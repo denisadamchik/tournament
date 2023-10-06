@@ -1,2 +1,0 @@
-class GameResult < ApplicationRecord
-end
