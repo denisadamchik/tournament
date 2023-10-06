@@ -17,26 +17,49 @@ module TournamentHelper
     games = Game.where(stage:)
     return games if games.present?
 
-    couples(stage).each { Game.play(_1, stage:) }
+    send(stage.underscore)
+
     Game.where(stage:)
   end
 
-  private
-
-  def couples(stage)
-    return [[Team.a.active.take, Team.b.active.take]] if stage == "final"
-
-    couples = []
-
+  def regular
     [Team.a, Team.b].each do |teams|
-      active_teams = teams.active.order(points: :desc, name: :asc)
-      best_team, worst_team = active_teams.first, active_teams.last
-      couples << [best_team, worst_team]
-      couples += active_teams.excluding(best_team, worst_team).each_slice(2).to_a
+      teams = teams.to_a
+      couples = teams.product(teams).reject { _1[0] == _1[1] }.map(&:sort).uniq
+      couples.each { Game.play(_1, stage: "regular") }
     end
 
-    couples
+    [Team.a, Team.b].each do |teams|
+      teams.order(points: :desc, name: :asc).last(4).each { _1.update!(active: false) }
+    end
   end
+
+  def play_off
+    [:a, :b].each do |div|
+      while (active_teams = Team.send(div).active).size > 2
+        ordered_teams = active_teams.order(points: :desc, name: :asc)
+        best_team, worst_team = ordered_teams.first, ordered_teams.last
+
+        Game.play([best_team, worst_team], stage: "play-off")
+      end
+    end
+  end
+
+  def semifinal
+    [:a, :b].each do |div|
+      while (active_teams = Team.send(div).active).size > 1
+        Game.play([active_teams.first, active_teams.last], stage: "semifinal")
+      end
+    end
+  end
+
+  def final
+    while (active_teams = Team.active).size > 1
+      Game.play([active_teams.first, active_teams.last], stage: "final")
+    end
+  end
+
+  private
 
   def _next(stage)
     index = Game.stages.keys.index(stage)
