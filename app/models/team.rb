@@ -7,8 +7,4 @@ class Team < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :a, -> { where(division: "A") }
   scope :b, -> { where(division: "B") }
-
-  def games
-    Game.where("home_team_id = ? OR away_team_id = ?", id, id)
-  end
 end

@@ -22,6 +22,8 @@ module TournamentHelper
     Game.where(stage:)
   end
 
+  private
+
   def regular
     [Team.a, Team.b].each do |teams|
       teams = teams.to_a
@@ -58,8 +60,6 @@ module TournamentHelper
       Game.play([active_teams.first, active_teams.last], stage: "final")
     end
   end
-
-  private
 
   def _next(stage)
     index = Game.stages.keys.index(stage)
