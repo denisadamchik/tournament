@@ -1,24 +1,27 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby
 
-Things you may want to cover:
+```
+rvm install 3.2.2
+```
 
-* Ruby version
+* SQLite3
 
-* System dependencies
+```
+sudo apt upgrade
+sudo apt install sqlite3
+```
 
-* Configuration
+* How to run
 
-* Database creation
+```
+git clone https://github.com/denisadamchik/tournament.git
+cd tournament
+bundle install
+bin/rails db:migrate
+bin/rails db:seed
+bin/dev
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Proceed to localhost:3000
