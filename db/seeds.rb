@@ -4,6 +4,7 @@
 #
 
 Team.delete_all
+Game.delete_all
 
 teams = [
   "Real Madrid",

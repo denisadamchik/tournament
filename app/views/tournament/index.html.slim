@@ -1,4 +1,4 @@
-.w-full
+.w-full.mb-4
   h1 = @stage.humanize
   = links(@stage)
 - if @stage == "final"
@@ -6,8 +6,8 @@
     = render "table", games: @games
 - else
   .w-full.lg:w-1/2
-    h1 Division A
+    h2 Division A
     = render "table", games: @games.a
   .w-full.lg:w-1/2
-    h1 Division B
+    h2 Division B
     = render "table", games: @games.b

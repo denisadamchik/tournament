@@ -19,7 +19,7 @@ class Game < ApplicationRecord
 
   def self.play(couple, stage:)
     home_team, away_team = couple.first, couple.second
-    home_team_goals, away_team_goals = rand(3), rand(3)
+    home_team_goals, away_team_goals = rand(4), rand(4)
 
     home_team_points, away_team_points =
       if home_team_goals > away_team_goals

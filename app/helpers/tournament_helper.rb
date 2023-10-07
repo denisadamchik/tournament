@@ -8,9 +8,11 @@ module TournamentHelper
 
     next_link = if (next_stage = _next(stage))
       link_to next_stage.capitalize, tournament_index_path(stage: next_stage)
+    else
+      link_to "Reset", teams_index_path(reset: true)
     end
 
-    next_link.present? ? safe_join([prev_link, next_link], "|") : prev_link
+    safe_join([prev_link, next_link], " | ")
   end
 
   def fetch_games(stage)
